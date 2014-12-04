@@ -80,11 +80,12 @@
 }
 
 -(void)handeTapGesture:(UITapGestureRecognizer*) tapRecognizer{
+    
     [self.viewDuck stopAnimating];
     self.viewDuck.animationImages = self.walk;
     self.viewDuck.animationDuration = 2.5f;
     [self.viewDuck startAnimating];
-
+    
     CGPoint pointOnView = [tapRecognizer locationInView:self.view];
     
     if (self.viewDuck.center.x < pointOnView.x) {
@@ -97,18 +98,21 @@
     
     [UIView animateWithDuration:2.5
                           delay:0
-                        options:UIViewAnimationOptionCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState
+                        options:UIViewAnimationOptionCurveEaseOut | UIViewAnimationOptionAllowUserInteraction //| UIViewAnimationOptionBeginFromCurrentState
                      animations:^{
+                         
                          self.viewDuck.center =  CGPointMake(pointOnView.x,self.viewDuck.center.y);
                          stayBool = NO;
                      }
                      completion:^(BOOL finished) {
+                         NSLog(@"BU");
                          [self.viewDuck stopAnimating];
                          self.viewDuck.animationImages = self.stay;
                          self.viewDuck.animationDuration = 2.5f;
                          [self.viewDuck startAnimating];
                          stayBool = YES;
                      }];
+    
 }
 
 -(void)handePanGesture:(UIPanGestureRecognizer*) panRecognizer{
